@@ -484,7 +484,7 @@ tela_indicadores = html.Div(children=[
                                 ],
                                 placeholder="Selecione o mês",
                                 style={
-                                    #"width": "60%",
+                                    "width": "90%",
                                     #'padding': '3px',
                                     "margin-left": "0px",
                                     #'font-size':'18px',
@@ -510,7 +510,7 @@ tela_indicadores = html.Div(children=[
                                 #value=anos[1],
                                 placeholder="Selecione o mês a comparar",
                                 style={
-                                    #"width": "80%",
+                                    "width": "90%",
                                     #'padding': '3px',
                                     "margin-left": "0px",
                                     #'font-size':'18px',
@@ -545,7 +545,7 @@ tela_indicadores = html.Div(children=[
                                 ],
                                 placeholder="Selecione o Plano",
                                 style={
-                                    #"width": "60%",
+                                    "width": "90%",
                                     #'padding': '3px',
                                     "margin-left": "0px",#"15px",
                                     #'font-size':'18px',
