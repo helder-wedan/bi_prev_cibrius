@@ -142,7 +142,7 @@ with requests.session() as s:
 
 inpc = pd.json_normalize(s.get(inpc_ibge).json())
 inpc = inpc[['D3C','D3N','D2N','V','MN']]
-inpc.V[2:]=inpc.V[2:].astype(float)
+inpc.loc[2:,'V']=inpc.loc[2:,'V'].astype(float)
 
 inpc.columns = inpc.iloc[0]
 inpc = inpc.iloc[1:].copy()
@@ -317,102 +317,7 @@ def header():
 
 tela_indicadores = html.Div(children=[
             header(),
-        dbc.Row([
-                dbc.Col([
-                    html.H5(
-                        dbc.Badge(
-                            "Selecionar competência:",
-                            color="#5d8aa7",
-                            className="me-1",
-                            style={
-                                "margin-left": "35px",
-                                "margin-top": "10px",
-                                },
-                                    )
-                            ),
-                        dcc.Dropdown(
-                            id="select-ano",
-                            value=anos[0],
-                            options=[
-                                {
-                                    "label": i,
-                                    "value": i,
-                                }
-                                for i in anos
-                            ],
-                            placeholder="Selecione o mês",
-                            style={
-                                #"width": "60%",
-                                #'padding': '3px',
-                                "margin-left": "15px",
-                                #'font-size':'18px',
-                                "textAlign": "center",
-                            },
-                            ),
-
-                        ], width=True),#xs = 2, sm=2, md=2, lg=2),#width=2),
-                                    dbc.Col([
-                    html.H5(
-                        dbc.Badge(
-                            "Selecionar competência anterior:",
-                            color="#5d8aa7",
-                            className="me-1",
-                            style={
-                                "margin-left": "30px",
-                                "margin-top": "10px",
-                                },
-                                    )
-                            ),
-                        dcc.Dropdown(
-                            id="select-ano-anterior",
-                            #value=anos[1],
-                            placeholder="Selecione o mês a comparar",
-                            style={
-                                #"width": "80%",
-                                #'padding': '3px',
-                                "margin-left": "15px",
-                                #'font-size':'18px',
-                                "textAlign": "center",
-                            },
-                            ),
-
-                        ], width=True),#xs = 2, sm=2, md=2, lg=2),#width=2),
         
-                    dbc.Col([
-                    html.H5(
-                        dbc.Badge(
-                            "Selecionar o Plano:",
-                            color="#5d8aa7",
-                            className="me-1",
-                            style={
-                                "margin-left": "0px",#"25px",
-                                "margin-top": "10px",
-                                },
-                                    )
-                            ),
-                        dcc.Dropdown(
-                            id="select-plano",
-                            value=planos[0],
-                            multi=False,
-                            options=[
-                                {
-                                    "label": i,
-                                    "value": i,
-                                }
-                                for i in planos
-                            ],
-                            placeholder="Selecione o Plano",
-                            style={
-                                #"width": "60%",
-                                #'padding': '3px',
-                                "margin-left": "0px",#"15px",
-                                #'font-size':'18px',
-                                "textAlign": "center",
-                            },
-                            ),
-                            ],width=True),# xs = 2, sm=2, md=2, lg=2),# width=2),
-                            
-]),
             dbc.Row([
                 dbc.Col([
                         dbc.Row([ 
@@ -541,6 +446,8 @@ tela_indicadores = html.Div(children=[
                         ],style={"margin-left": "25px",},),
                         ],xs = 7, sm=7, md=5, lg=2),# width=True),# 'One of six columns'),#xs = 2, sm=2, md=2, lg=2),# width=2),
 
+                dbc.Col([
+                dbc.Row([
                     dbc.Col([
                        html.Div([], id='tabela_provisoes'),
                        dcc.Loading(
@@ -550,7 +457,105 @@ tela_indicadores = html.Div(children=[
                        dcc.Loading(
                             id="loading-2",
                             type="dot",
-                            ),                        
+                            ),
+                            ]),
+
+                    dbc.Col([
+                        html.H5(
+                            dbc.Badge(
+                                "Selecionar competência:",
+                                color="#5d8aa7",
+                                className="me-1",
+                                style={
+                                    "margin-left": "0px",
+                                    "margin-top": "5px",
+                                    },
+                                        )
+                                ),
+                            dcc.Dropdown(
+                                id="select-ano",
+                                value=anos[0],
+                                options=[
+                                    {
+                                        "label": i,
+                                        "value": i,
+                                    }
+                                    for i in anos
+                                ],
+                                placeholder="Selecione o mês",
+                                style={
+                                    #"width": "60%",
+                                    #'padding': '3px',
+                                    "margin-left": "0px",
+                                    #'font-size':'18px',
+                                    "textAlign": "center",
+                                },
+                                ),
+
+    #                        ], width=True),#xs = 2, sm=2, md=2, lg=2),#width=2),
+    #                dbc.Col([
+                        html.H5(
+                            dbc.Badge(
+                                "Selecionar competência anterior:",
+                                color="#5d8aa7",
+                                className="me-1",
+                                style={
+                                    "margin-left": "0px",
+                                    "margin-top": "20px",
+                                    },
+                                        )
+                                ),
+                            dcc.Dropdown(
+                                id="select-ano-anterior",
+                                #value=anos[1],
+                                placeholder="Selecione o mês a comparar",
+                                style={
+                                    #"width": "80%",
+                                    #'padding': '3px',
+                                    "margin-left": "0px",
+                                    #'font-size':'18px',
+                                    "textAlign": "center",
+                                },
+                                ),
+
+    #                        ], width=True),#xs = 2, sm=2, md=2, lg=2),#width=2),
+        
+    #                dbc.Col([
+                        html.H5(
+                            dbc.Badge(
+                                "Selecionar o Plano:",
+                                color="#5d8aa7",
+                                className="me-1",
+                                style={
+                                    "margin-left": "0px",#"25px",
+                                    "margin-top": "20px",
+                                    },
+                                        )
+                                ),
+                            dcc.Dropdown(
+                                id="select-plano",
+                                value=planos[0],
+                                multi=False,
+                                options=[
+                                    {
+                                        "label": i,
+                                        "value": i,
+                                    }
+                                    for i in planos
+                                ],
+                                placeholder="Selecione o Plano",
+                                style={
+                                    #"width": "60%",
+                                    #'padding': '3px',
+                                    "margin-left": "0px",#"15px",
+                                    #'font-size':'18px',
+                                    "textAlign": "center",
+                                },
+                                ),
+                                ],width=True),# xs = 2, sm=2, md=2, lg=2),# width=2),
+
+                    ]),
+
                  dbc.Row([
                     
                       dbc.Col([html.Div([dcc.Graph(id="rentabilidade_graph"),],"One of two columns")], align="start"),
@@ -603,7 +608,8 @@ tela_indicadores = html.Div(children=[
                          "margin-top": "15px",}, 
                 #width=True
                 ),
-                        ]),
+            ]),
+                        
                 
                 dcc.Location(id="data-url"), 
                 ],style={
